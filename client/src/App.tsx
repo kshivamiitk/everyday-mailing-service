@@ -15,24 +15,22 @@ export default function App() {
   const [loadingMail, setLoadingMail] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
 
-  useEffect(() => {
-    const stored = localStorage.getItem("todo_user");
-    if (stored) {
-      setUser(JSON.parse(stored));
-      return;
+  // replaces the previous "ask for email" useEffect
+useEffect(() => {
+  // hard-coded demo user email
+  const hardcodedEmail = "kshivam22@iitk.ac.in";
+
+  // create / upsert the user on every app start and save to localStorage
+  (async () => {
+    try {
+      const { data } = await api.post("/users", { email: hardcodedEmail, full_name: "K Shivam" });
+      setUser({ id: data.id, email: data.email });
+      localStorage.setItem("todo_user", JSON.stringify({ id: data.id, email: data.email }));
+    } catch (err) {
+      console.error("Failed to create/fetch hardcoded user:", err);
     }
-    (async () => {
-      const email = prompt("Enter your IITK email for demo (e.g. you@iitk.ac.in):") || "";
-      if (!email) return;
-      try {
-        const { data } = await api.post("/users", { email, full_name: "" });
-        setUser({ id: data.id, email: data.email });
-        localStorage.setItem("todo_user", JSON.stringify({ id: data.id, email: data.email }));
-      } catch (e) {
-        alert("Failed to create user");
-      }
-    })();
-  }, []);
+  })();
+}, []);
 
   useEffect(() => {
     if (!user) return;
