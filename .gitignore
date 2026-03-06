@@ -1,0 +1,29 @@
+# environment variables
+.env
+.env.*
+
+# node dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# build folders
+dist/
+build/
+
+# macOS files
+.DS_Store
+
+# Vite cache
+.vite
+
+# IDE
+.vscode/
+.idea/
+
+# local env files in server/client
+server/.env
+client/.env
