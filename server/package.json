@@ -1,8 +1,10 @@
 {
-  "name": "todo-server",
+  "name": "everyday-planner-server",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "prebuild": "echo \"Building client and copying to public...\"",
+    "build": "cd ../client && npm ci && npm run build && rm -rf ../server/public && mkdir -p ../server/public && cp -r dist/* ../server/public/",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
@@ -10,7 +12,6 @@
     "@supabase/supabase-js": "^2.28.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
-    "date-fns": "^2.30.0",
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "luxon": "^3.6.0",
@@ -19,5 +20,8 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
